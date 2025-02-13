@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+#define TAX_RATE 0.05  // 5% tax
+
+struct Item {
+    char name[50];
+    float price;
+    int quantity;
+};
+
+void generateInvoice(struct Item items[], int count) {
+    float total = 0, tax, grandTotal;
+    
+    printf("\n--- Invoice ---\n");
+    printf("%-20s %-10s %-10s %-10s\n", "Item", "Price", "Quantity", "Total");
+
+    for (int i = 0; i < count; i++) {
+        float itemTotal = items[i].price * items[i].quantity;
+        total += itemTotal;
+        printf("%-20s $%-9.2f %-10d $%-9.2f\n", items[i].name, items[i].price, items[i].quantity, itemTotal);
+    }
+
+    tax = total * TAX_RATE;
+    grandTotal = total + tax;
+
+    printf("\nSubtotal: $%.2f\n", total);
+    printf("Tax (5%%): $%.2f\n", tax);
+    printf("Grand Total: $%.2f\n", grandTotal);
+}
+
+int main() {
+    struct Item items[3] = {
+        {"Apple", 1.5, 3},
+        {"Milk", 2.0, 2},
+        {"Bread", 2.5, 1}
+    };
+
+    generateInvoice(items, 3);
+    return 0;
+}
